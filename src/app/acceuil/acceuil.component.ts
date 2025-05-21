@@ -8,6 +8,7 @@ import { StatComponent } from './stat/stat.component';
 import { NosServicesComponent } from './nos-services/nos-services.component';
 
 
+
 @Component({
   selector: 'app-acceuil',
   imports: [CommonModule,RouterModule,SliderComponent,NosServicesComponent,PopulaireComponent,StatComponent],

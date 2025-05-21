@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormationService } from '../../frms.service';
 
 @Component({
   selector: 'app-populaire',
-  imports: [CommonModule,RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './populaire.component.html',
   styleUrl: './populaire.component.css'
 })
 export class PopulaireComponent implements OnInit {
   featuredFormations: any[] = []; // Liste des formations populaires
-  
-  // Indices des formations que tu veux afficher
-  selectedIndices: number[] = [0, 4, 8];  // Indices pour afficher les formations 1, 6 et 4
+  selectedIndices: number[] = [0, 4, 8]; // Indices que tu veux afficher
 
   constructor(private formationService: FormationService) {}
 
@@ -22,9 +21,10 @@ export class PopulaireComponent implements OnInit {
   }
 
   getFeaturedFormations(): void {
-    const allFormations = this.formationService.getFormations(); // Récupérer toutes les formations
-    
-    // Sélectionner les formations par les indices spécifiés
-    this.featuredFormations = this.selectedIndices.map(index => allFormations[index]);
+    this.formationService.getFormations().subscribe(allFormations => {
+      this.featuredFormations = this.selectedIndices
+        .filter(index => index < allFormations.length)
+        .map(index => allFormations[index]);
+    });
   }
 }

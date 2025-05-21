@@ -21,9 +21,10 @@ export class FormationDetailComponent implements OnInit {
 
   ngOnInit() {
     const name = this.route.snapshot.params['name'];
-    this.formation = this.formationService.getFormationByName(name);
+    this.formationService.getFormationByName(name).subscribe(data => {
+      this.formation = data;
+    });
   }
-
   selectImage(image: string) {
     this.selectedImage = image; // Met à jour l'image principale
 }
@@ -43,4 +44,5 @@ export class FormationDetailComponent implements OnInit {
    onCloseForm() {
     this.isFormVisible = false;  // Cacher le formulaire quand l'événement est émis
   }
+  
 }
